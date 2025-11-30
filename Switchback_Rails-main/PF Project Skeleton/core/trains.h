@@ -8,49 +8,70 @@
 // ----------------------------------------------------------------------------
 // TRAIN SPAWNING
 // ----------------------------------------------------------------------------
-// Spawn trains scheduled for the current tick.
-void spawnTrainsForTick();
+void spawnTrainsForTick(int currentTick, int trainCount,
+                        int trainSpawnTick[], int trainX[], int trainY[],
+                        bool trainActive[], char grid[][100]);
 
 // ----------------------------------------------------------------------------
 // TRAIN ROUTING
 // ----------------------------------------------------------------------------
-// Compute routes for all trains (Phase 2).
-void determineAllRoutes();
+void determineAllRoutes(int trainCount, int trainX[], int trainY[], int trainDir[],
+                       int trainNextX[], int trainNextY[], int trainNextDir[],
+                       bool trainActive[], bool trainCrashed[],
+                       int trainDestX[], int trainDestY[],
+                       char grid[][100], int gridCols, int gridRows,
+                       bool switchExists[], int switchState[]);
 
-// Compute next position/direction for a train.
-bool determineNextPosition();
+// Compute next position/direction for a single train
+bool determineNextPosition(int trainId, int trainCount, int trainX[], int trainY[], int trainDir[],
+                          int trainNextX[], int trainNextY[], int trainNextDir[],
+                          bool trainActive[], bool trainCrashed[],
+                          int trainDestX[], int trainDestY[],
+                          char grid[][100], int gridCols, int gridRows,
+                          bool switchExists[], int switchState[]);
 
-// Get next direction on entering a tile.
-int getNextDirection();
+int getNextDirection(int x, int y, int currentDir, char tile,
+                    bool switchExists[], int switchState[]);
 
-// Choose best direction at a crossing.
-int getSmartDirectionAtCrossing();
+int getSmartDirectionAtCrossing(int x, int y, int currentDir,
+                               int destX, int destY);
 
 // ----------------------------------------------------------------------------
 // TRAIN MOVEMENT
 // ----------------------------------------------------------------------------
-// Move trains and handle collisions (Phase 5).
-void moveAllTrains();
+void moveAllTrains(int trainCount, int trainX[], int trainY[], int trainDir[],
+                  int trainNextX[], int trainNextY[], int trainNextDir[],
+                  bool trainActive[], bool trainCrashed[], bool trainDelivered[],
+                  int trainWaitTicks[], char grid[][100]);
 
 // ----------------------------------------------------------------------------
 // COLLISION DETECTION
 // ----------------------------------------------------------------------------
-// Detect trains targeting the same tile/swap/crossing.
-void detectCollisions();
+void detectCollisions(int trainCount, int trainX[], int trainY[],
+                     int trainNextX[], int trainNextY[], int trainNextDir[],
+                     int trainDir[],
+                     int trainDestX[], int trainDestY[],
+                     bool trainActive[], bool trainCrashed[], bool trainDelivered[]);
+
+int calculateManhattanDistance(int x1, int y1, int x2, int y2);
 
 // ----------------------------------------------------------------------------
 // ARRIVALS
 // ----------------------------------------------------------------------------
-// Mark trains that reached destinations.
-void checkArrivals();
+void checkArrivals(int trainCount, int trainX[], int trainY[],
+                  int trainDestX[], int trainDestY[],
+                  bool trainActive[], bool trainDelivered[],
+                  int& trainsDelivered);
 
 // ----------------------------------------------------------------------------
 // EMERGENCY HALT
 // ----------------------------------------------------------------------------
-// Apply emergency halt in active zone.
-void applyEmergencyHalt();
+// Apply emergency halt to trains in the active zone
+void applyEmergencyHalt(int trainCount, int trainX[], int trainY[],
+                       bool trainActive[], bool trainCrashed[]);
 
-// Update emergency halt timer.
+// Update emergency halt timer
 void updateEmergencyHalt();
 
 #endif
+
