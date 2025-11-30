@@ -8,25 +8,31 @@
 // ----------------------------------------------------------------------------
 // LEVEL LOADING
 // ----------------------------------------------------------------------------
-// Load a .lvl file.
-bool loadLevelFile();
+bool loadLevelFile(const char* filename,
+                   char levelName[],
+                   int& gridRows, int& gridCols,
+                   char grid[][100],
+                   int& seed, int& weatherMode,
+                   bool switchExists[], int switchState[], bool switchMode[],
+                   int switchKValues[][4], char switchStateNames[][2][32],
+                   int& trainCount, int trainX[], int trainY[], int trainDir[],
+                   int trainDestX[], int trainDestY[], int trainSpawnTick[], int trainColor[],
+                   int& spawnCount, int spawnX[], int spawnY[],
+                   int& destCount, int destX[], int destY[]);
 
 // ----------------------------------------------------------------------------
 // LOGGING
 // ----------------------------------------------------------------------------
-// Create/clear log files.
 void initializeLogFiles();
 
-// Append train movement to trace.csv.
-void logTrainTrace();
+void logTrainTrace(int tick, int trainId, int x, int y, int dir, const char* state);
 
-// Append switch state to switches.csv.
-void logSwitchState();
+void logSwitchState(int tick, char switchLetter, const char* mode, const char* state);
 
-// Append signal state to signals.csv.
-void logSignalState();
+void logSignalState(int tick, char switchLetter, const char* signal);
 
-// Write final metrics to metrics.txt.
-void writeMetrics();
+void writeMetrics(int totalTicks, int trainsDelivered, int trainsCrashed,
+                  int totalWaitTicks, int totalSwitchFlips);
 
 #endif
+
