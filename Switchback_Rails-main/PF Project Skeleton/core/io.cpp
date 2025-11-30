@@ -13,7 +13,6 @@ using namespace std;
 // IO.CPP - Level I/O and logging
 // ============================================================================
 
-// Helper: Get string length
 int getLength(const char* str) {
     int len = 0;
     while(str[len] != '\0') {
@@ -22,7 +21,6 @@ int getLength(const char* str) {
     return len;
 }
 
-// Helper: Find substring in string
 const char* findString(const char* text, const char* word) {
     int textLen = getLength(text);
     int wordLen = getLength(word);
@@ -42,7 +40,6 @@ const char* findString(const char* text, const char* word) {
     return nullptr;
 }
 
-// Helper: Compare first n characters of two strings
 int compareFirst(const char* str1, const char* str2, int n) {
     for(int i = 0; i < n; i++) {
         if(str1[i] != str2[i]) {
@@ -55,7 +52,6 @@ int compareFirst(const char* str1, const char* str2, int n) {
     return 0;
 }
 
-// Helper: Compare two full strings
 int compareStrings(const char* str1, const char* str2) {
     int i = 0;
     while(str1[i] != '\0' && str2[i] != '\0') {
@@ -67,7 +63,6 @@ int compareStrings(const char* str1, const char* str2) {
     return str1[i] - str2[i];
 }
 
-// Helper: Copy string from source to destination
 void copyString(char* dest, const char* src) {
     int i = 0;
     while(src[i] != '\0') {
@@ -77,18 +72,15 @@ void copyString(char* dest, const char* src) {
     dest[i] = '\0';
 }
 
-// Helper: Convert string to integer
 int toInt(const char* str) {
     int result = 0;
     int sign = 1;
     int i = 0;
     
-    // Skip whitespace
     while(str[i] == ' ' || str[i] == '\t' || str[i] == '\n') {
         i++;
     }
     
-    // Handle sign
     if(str[i] == '-') {
         sign = -1;
         i++;
@@ -96,7 +88,6 @@ int toInt(const char* str) {
         i++;
     }
     
-    // Convert digits
     while(str[i] >= '0' && str[i] <= '9') {
         result = result * 10 + (str[i] - '0');
         i++;
@@ -105,89 +96,71 @@ int toInt(const char* str) {
     return result * sign;
 }
 
-// Helper: Read switch data from line
 void readSwitchData(const char* line, char& switchLetter, char modeStr[], int& state,
                     int& k0, int& k1, int& k2, int& k3, char name0[], char name1[]) {
     int pos = 0;
     
-    // Read switch letter
     switchLetter = line[pos];
     pos++;
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read mode string
     int modeIdx = 0;
     while(line[pos] != ' ' && line[pos] != '\0') {
         modeStr[modeIdx++] = line[pos++];
     }
     modeStr[modeIdx] = '\0';
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read state
     state = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         state = state * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read k0
     k0 = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         k0 = k0 * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read k1
     k1 = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         k1 = k1 * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read k2
     k2 = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         k2 = k2 * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read k3
     k3 = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         k3 = k3 * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read name0
     int name0Idx = 0;
     while(line[pos] != ' ' && line[pos] != '\0') {
         name0[name0Idx++] = line[pos++];
     }
     name0[name0Idx] = '\0';
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read name1
     int name1Idx = 0;
     while(line[pos] != ' ' && line[pos] != '\0' && line[pos] != '\n' && line[pos] != '\r') {
         name1[name1Idx++] = line[pos++];
@@ -195,54 +168,43 @@ void readSwitchData(const char* line, char& switchLetter, char modeStr[], int& s
     name1[name1Idx] = '\0';
 }
 
-// Helper: Read train data from line
 void readTrainData(const char* line, int& tick, int& x, int& y, int& dir, int& destIdx) {
     int pos = 0;
     
-    // Skip leading whitespace
     while(line[pos] == ' ') pos++;
     
-    // Read tick
     tick = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         tick = tick * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read x
     x = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         x = x * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read y
     y = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         y = y * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read dir
     dir = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         dir = dir * 10 + (line[pos] - '0');
         pos++;
     }
     
-    // Skip space
     while(line[pos] == ' ') pos++;
     
-    // Read destIdx
     destIdx = 0;
     while(line[pos] >= '0' && line[pos] <= '9') {
         destIdx = destIdx * 10 + (line[pos] - '0');
@@ -251,9 +213,7 @@ void readTrainData(const char* line, int& tick, int& x, int& y, int& dir, int& d
 }
 
 // ----------------------------------------------------------------------------
-// LOAD LEVEL FILE
-// ----------------------------------------------------------------------------
-// Load a .lvl file into global state.
+// Load level file
 // ----------------------------------------------------------------------------
 bool loadLevelFile(const char* filename,
                    char levelName[],
@@ -274,58 +234,45 @@ bool loadLevelFile(const char* filename,
     
     char line[256];
     
-    // Parse NAME
-    file.getline(line, 256); // "NAME:"
+    file.getline(line, 256);
     file.getline(levelName, 256);
     
-    // Skip empty line
     file.getline(line, 256);
     
-    // Parse ROWS
-    file.getline(line, 256); // "ROWS:"
+    file.getline(line, 256);
     file.getline(line, 256);
     gridRows = toInt(line);
     
-    // Skip empty line
     file.getline(line, 256);
     
-    // Parse COLS
-    file.getline(line, 256); // "COLS:"
+    file.getline(line, 256);
     file.getline(line, 256);
     gridCols = toInt(line);
     
-    // Skip empty line
     file.getline(line, 256);
     
-    // Parse SEED
-    file.getline(line, 256); // "SEED:"
+    file.getline(line, 256);
     file.getline(line, 256);
     seed = toInt(line);
     
-    // Skip empty line
     file.getline(line, 256);
     
-    // Parse WEATHER
-    file.getline(line, 256); // "WEATHER:"
+    file.getline(line, 256);
     file.getline(line, 256);
     if(findString(line, "NORMAL")) weatherMode = 0;
     else if(findString(line, "RAIN")) weatherMode = 1;
     else if(findString(line, "FOG")) weatherMode = 2;
     
-    // Skip empty line
     file.getline(line, 256);
     
-    // Parse MAP
-    file.getline(line, 256); // "MAP:"
+    file.getline(line, 256);
     
-    // Read exactly gridRows lines for the map
     int actualRows = 0;
     for(int row = 0; row < gridRows; row++) {
         if(!file.getline(line, 256)) {
-            break; // End of file
+            break;
         }
         
-        // Stop if we hit SWITCHES section
         if(compareFirst(line, "SWITCHES:", 9) == 0) {
             break;
         }
@@ -334,14 +281,12 @@ bool loadLevelFile(const char* filename,
         for(int x = 0; x < gridCols && x < len; x++) {
             grid[actualRows][x] = line[x];
             
-            // Record spawn points
             if(line[x] == 'S') {
                 spawnX[spawnCount] = x;
                 spawnY[spawnCount] = actualRows;
                 spawnCount++;
             }
             
-            // Record ALL destination points
             if(line[x] == 'D') {
                 destX[destCount] = x;
                 destY[destCount] = actualRows;
@@ -349,7 +294,6 @@ bool loadLevelFile(const char* filename,
             }
         }
         
-        // Fill rest with spaces
         for(int x = len; x < gridCols; x++) {
             grid[actualRows][x] = ' ';
         }
@@ -357,19 +301,16 @@ bool loadLevelFile(const char* filename,
         actualRows++;
     }
     
-    // Fill remaining rows with spaces if needed
     for(int y = actualRows; y < gridRows; y++) {
         for(int x = 0; x < gridCols; x++) {
             grid[y][x] = ' ';
         }
     }
     
-    // Parse SWITCHES
     if(compareFirst(line, "SWITCHES:", 9) != 0) {
-        file.getline(line, 256); // Read "SWITCHES:"
+        file.getline(line, 256);
     }
     
-    // Skip empty line if present
     file.getline(line, 256);
     while(getLength(line) > 0 && line[0] >= 'A' && line[0] <= 'Z') {
         char switchLetter;
@@ -393,9 +334,8 @@ bool loadLevelFile(const char* filename,
         file.getline(line, 256);
     }
     
-    // Parse TRAINS
     if(compareFirst(line, "TRAINS:", 7) != 0) {
-        file.getline(line, 256); // Read "TRAINS:"
+        file.getline(line, 256);
     }
     
     trainCount = 0;
@@ -409,7 +349,6 @@ bool loadLevelFile(const char* filename,
         trainDir[trainCount] = dir;
         trainColor[trainCount] = destIdx;
         
-        // Find nearest spawn point
         int nearestSpawn = 0;
         int minDist = 9999;
         for(int s = 0; s < spawnCount; s++) {
@@ -422,11 +361,9 @@ bool loadLevelFile(const char* filename,
             }
         }
         
-        // Snap train to nearest spawn point
         trainX[trainCount] = spawnX[nearestSpawn];
         trainY[trainCount] = spawnY[nearestSpawn];
         
-        // Assign destination
         if(destIdx < destCount) {
             trainDestX[trainCount] = destX[destIdx];
             trainDestY[trainCount] = destY[destIdx];
@@ -440,9 +377,7 @@ bool loadLevelFile(const char* filename,
 }
 
 // ----------------------------------------------------------------------------
-// INITIALIZE LOG FILES
-// ----------------------------------------------------------------------------
-// Create/clear CSV logs with headers.
+// Initialize log files
 // ----------------------------------------------------------------------------
 void initializeLogFiles() {
     ofstream traceFile("out/trace.csv");
@@ -465,9 +400,7 @@ void initializeLogFiles() {
 }
 
 // ----------------------------------------------------------------------------
-// LOG TRAIN TRACE
-// ----------------------------------------------------------------------------
-// Append tick, train id, position, direction, state to trace.csv.
+// Log train trace
 // ----------------------------------------------------------------------------
 void logTrainTrace(int tick, int trainId, int x, int y, int dir, const char* state) {
     ofstream traceFile("out/trace.csv", ios::app);
@@ -480,9 +413,7 @@ void logTrainTrace(int tick, int trainId, int x, int y, int dir, const char* sta
 }
 
 // ----------------------------------------------------------------------------
-// LOG SWITCH STATE
-// ----------------------------------------------------------------------------
-// Append tick, switch id/mode/state to switches.csv.
+// Log switch state
 // ----------------------------------------------------------------------------
 void logSwitchState(int tick, char switchLetter, const char* mode, const char* state) {
     ofstream switchFile("out/switches.csv", ios::app);
@@ -493,9 +424,7 @@ void logSwitchState(int tick, char switchLetter, const char* mode, const char* s
 }
 
 // ----------------------------------------------------------------------------
-// LOG SIGNAL STATE
-// ----------------------------------------------------------------------------
-// Append tick, switch id, signal color to signals.csv.
+// Log signal state
 // ----------------------------------------------------------------------------
 void logSignalState(int tick, char switchLetter, const char* signal) {
     ofstream signalFile("out/signals.csv", ios::app);
@@ -506,9 +435,7 @@ void logSignalState(int tick, char switchLetter, const char* signal) {
 }
 
 // ----------------------------------------------------------------------------
-// WRITE FINAL METRICS
-// ----------------------------------------------------------------------------
-// Write summary metrics to metrics.txt.
+// Write metrics
 // ----------------------------------------------------------------------------
 void writeMetrics(int totalTicks, int trainsDelivered, int trainsCrashed,
                  int totalWaitTicks, int totalSwitchFlips) {

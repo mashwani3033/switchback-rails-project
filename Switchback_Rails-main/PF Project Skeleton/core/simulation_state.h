@@ -2,7 +2,7 @@
 #define SIMULATION_STATE_H
 
 // ============================================================================
-// SIMULATION_STATE.H - Initialization only (NO EXTERN!)
+// SIMULATION_STATE.H - Initialization only
 // ============================================================================
 
 void initializeSimulationState(

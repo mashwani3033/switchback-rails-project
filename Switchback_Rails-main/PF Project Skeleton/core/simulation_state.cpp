@@ -2,7 +2,7 @@
 #include <cstring>
 
 // ============================================================================
-// SIMULATION_STATE.CPP - Initialize all state using C++ references
+// SIMULATION_STATE.CPP 
 // ============================================================================
 
 void initializeSimulationState(
@@ -21,7 +21,6 @@ void initializeSimulationState(
     int& currentTick, int& seed, int& weatherMode,
     int& trainsDelivered, int& trainsCrashed, int& totalSwitchFlips, int& signalViolations
 ) {
-    // Reset grid
     gridRows = 0;
     gridCols = 0;
     for(int i = 0; i < 50; i++) {
@@ -31,7 +30,6 @@ void initializeSimulationState(
     }
     levelName[0] = '\0';
     
-    // Reset trains
     trainCount = 0;
     for(int i = 0; i < 100; i++) {
         trainX[i] = 0;
@@ -53,7 +51,6 @@ void initializeSimulationState(
         trainPrevY[i] = -1;
     }
     
-    // Reset switches
     for(int i = 0; i < 26; i++) {
         switchExists[i] = false;
         switchState[i] = 0;
@@ -69,7 +66,6 @@ void initializeSimulationState(
         }
     }
     
-    // Reset spawn/dest points
     spawnCount = 0;
     destCount = 0;
     for(int i = 0; i < 50; i++) {
@@ -79,12 +75,10 @@ void initializeSimulationState(
         destY[i] = 0;
     }
     
-    // Reset simulation parameters
     currentTick = 0;
     seed = 0;
     weatherMode = 0;
     
-    // Reset metrics
     trainsDelivered = 0;
     trainsCrashed = 0;
     totalSwitchFlips = 0;

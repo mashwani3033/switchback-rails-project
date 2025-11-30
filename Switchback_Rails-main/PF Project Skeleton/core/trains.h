@@ -22,7 +22,6 @@ void determineAllRoutes(int trainCount, int trainX[], int trainY[], int trainDir
                        char grid[][100], int gridCols, int gridRows,
                        bool switchExists[], int switchState[]);
 
-// Compute next position/direction for a single train
 bool determineNextPosition(int trainId, int trainCount, int trainX[], int trainY[], int trainDir[],
                           int trainNextX[], int trainNextY[], int trainNextDir[],
                           bool trainActive[], bool trainCrashed[],
@@ -66,11 +65,9 @@ void checkArrivals(int trainCount, int trainX[], int trainY[],
 // ----------------------------------------------------------------------------
 // EMERGENCY HALT
 // ----------------------------------------------------------------------------
-// Apply emergency halt to trains in the active zone
 void applyEmergencyHalt(int trainCount, int trainX[], int trainY[],
                        bool trainActive[], bool trainCrashed[]);
 
-// Update emergency halt timer
 void updateEmergencyHalt();
 
 #endif

@@ -8,23 +8,11 @@
 using namespace std;
 
 // ============================================================================
-// MAIN.CPP - Entry point of the application (NO CLASSES)
+// MAIN.CPP - Entry point
 // ============================================================================
 
-// ----------------------------------------------------------------------------
-// MAIN ENTRY POINT
-// ----------------------------------------------------------------------------
-// This function is the main entry point of the application. It handles command
-// line arguments to specify the level file to load, loads the level file using
-// loadLevelFile, initializes the simulation system, initializes the SFML
-// application window, prints control instructions to the console, runs the
-// main application loop, cleans up resources, and prints final simulation
-// statistics. Returns 0 on success, 1 on error (e.g., failed to load level
-// file or initialize application).
-// ----------------------------------------------------------------------------
 int main(int argc, char* argv[]) {
     
-    // Define all variables locally
     int gridRows;
     int gridCols;
     char grid[50][100];
@@ -88,7 +76,6 @@ int main(int argc, char* argv[]) {
     
     const char* levelFile = argv[1];
     
-    // Initialize all variables using pass-by-reference
     initializeSimulationState(gridRows, gridCols, grid, levelName,
                               trainCount, trainX, trainY, trainDir,
                               trainNextX, trainNextY, trainNextDir,
@@ -134,7 +121,6 @@ int main(int argc, char* argv[]) {
     if(useSFML) {
         cout << "Starting SFML visualization..." << endl;
         
-        // Pass ALL variables to runApp (no extern needed!)
         runApp(gridRows, gridCols, grid,
               trainCount, trainX, trainY, trainDir,
               trainNextX, trainNextY, trainNextDir,
@@ -191,7 +177,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // This section runs AFTER both SFML and console modes
     int totalWait = 0;
     for(int i = 0; i < trainCount; i++) {
         totalWait += trainTotalWaitTicks[i];
@@ -218,4 +203,4 @@ int main(int argc, char* argv[]) {
     
     return 0;
 }
-
+s

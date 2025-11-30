@@ -10,19 +10,18 @@
 using namespace std;
 
 // ============================================================================
-// SIMULATION.CPP - Implementation of main simulation logic
+// SIMULATION.CPP - Main simulation logic
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// INITIALIZE SIMULATION
+// Initialize simulation
 // ----------------------------------------------------------------------------
 void initializeSimulation() {
-    // Initialize log files
     initializeLogFiles();
 }
 
 // ----------------------------------------------------------------------------
-// SIMULATE ONE TICK
+// Simulate one tick
 // ----------------------------------------------------------------------------
 void simulateOneTick(int& currentTick,
                     int trainCount, int trainX[], int trainY[], int trainDir[],
@@ -39,14 +38,11 @@ void simulateOneTick(int& currentTick,
                     char switchStateNames[][2][32],
                     int& trainsDelivered, int& trainsCrashed, int& totalSwitchFlips) {
     
-    // Increment tick counter
     currentTick++;
     
-    // PHASE 1: SPAWN
     spawnTrainsForTick(currentTick, trainCount, trainSpawnTick, trainX, trainY,
                       trainActive, grid);
     
-    // PHASE 2: ROUTE DETERMINATION
     determineAllRoutes(trainCount, trainX, trainY, trainDir,
                       trainNextX, trainNextY, trainNextDir,
                       trainActive, trainCrashed,
@@ -54,22 +50,17 @@ void simulateOneTick(int& currentTick,
                       grid, gridCols, gridRows,
                       switchExists, switchState);
     
-    // PHASE 3: COUNTER UPDATE
     updateSwitchCounters(trainCount, trainX, trainY, trainPrevX, trainPrevY,
                         trainActive, trainCrashed, trainDir, grid,
                         switchExists, switchMode, switchCounters);
     
-    // PHASE 4: FLIP QUEUE
     queueSwitchFlips(switchExists, switchMode, switchCounters,
                     switchKValues, switchFlipQueued);
     
-    // PHASE 5: COLLISION DETECTION
     detectCollisions(trainCount, trainX, trainY, trainNextX, trainNextY, trainNextDir,
                     trainDir, trainDestX, trainDestY,
                     trainActive, trainCrashed, trainDelivered);
     
-    // Count ALL crashes (from route determination AND collision detection)
-    // Only count and deactivate in ONE place to avoid double-counting
     for(int i = 0; i < trainCount; i++) {
         if(trainCrashed[i] && trainActive[i]) {
             trainsCrashed++;
@@ -77,8 +68,6 @@ void simulateOneTick(int& currentTick,
         }
     }
     
-    // PHASE 6: MOVEMENT
-    // Save previous positions
     for(int i = 0; i < trainCount; i++) {
         trainPrevX[i] = trainX[i];
         trainPrevY[i] = trainY[i];
@@ -89,20 +78,16 @@ void simulateOneTick(int& currentTick,
                  trainActive, trainCrashed, trainDelivered,
                  trainWaitTicks, grid);
     
-    // PHASE 7: DEFERRED FLIPS
     applyDeferredFlips(switchExists, switchState, switchFlipQueued,
                       switchCounters, totalSwitchFlips);
     
-    // PHASE 8: ARRIVALS
     checkArrivals(trainCount, trainX, trainY, trainDestX, trainDestY,
                  trainActive, trainDelivered, trainsDelivered);
     
-    // PHASE 9: SIGNAL LIGHTS
     updateSignalLights(switchExists, switchState, switchSignal,
                       grid, gridRows, gridCols,
                       trainCount, trainX, trainY, trainActive);
     
-    // PHASE 10: LOGGING
     for(int i = 0; i < trainCount; i++) {
         if(trainActive[i]) {
             const char* state = "MOVING";
@@ -132,13 +117,12 @@ void simulateOneTick(int& currentTick,
         }
     }
     
-    // PHASE 11: TERMINAL OUTPUT
     printGridToTerminal(grid, gridRows, gridCols, trainCount,
                        trainX, trainY, trainDir, trainActive, trainCrashed, currentTick);
 }
 
 // ----------------------------------------------------------------------------
-// CHECK IF SIMULATION IS COMPLETE
+// Check if simulation complete
 // ----------------------------------------------------------------------------
 bool isSimulationComplete(int trainCount, bool trainActive[],
                          bool trainDelivered[], bool trainCrashed[]) {
@@ -153,7 +137,7 @@ bool isSimulationComplete(int trainCount, bool trainActive[],
 }
 
 // ----------------------------------------------------------------------------
-// PRINT GRID TO TERMINAL (C++ Style)
+// Print grid to terminal
 // ----------------------------------------------------------------------------
 void printGridToTerminal(char grid[][100], int gridRows, int gridCols,
                         int trainCount, int trainX[], int trainY[], int trainDir[],
