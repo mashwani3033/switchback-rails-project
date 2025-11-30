@@ -1,1 +1,0 @@
-# switchback-rails-project
