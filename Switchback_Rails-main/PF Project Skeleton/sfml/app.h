@@ -2,28 +2,27 @@
 #define APP_H
 
 // ============================================================================
-// APP.H - SFML application for visualization (NO CLASSES)
-// ============================================================================
-// This module uses only functions and global variables for the SFML frontend.
+// APP.H - SFML Application
 // ============================================================================
 
-// ----------------------------------------------------------------------------
-// INITIALIZATION
-// ----------------------------------------------------------------------------
-// Initialize the SFML window and resources
-// Returns true on success, false on failure
 bool initializeApp();
 
-// ----------------------------------------------------------------------------
-// MAIN RUN LOOP
-// ----------------------------------------------------------------------------
-// Run the main application loop
-void runApp();
+void runApp(int& gridRows, int& gridCols, char grid[][100],
+           int& trainCount, int trainX[], int trainY[], int trainDir[],
+           int trainNextX[], int trainNextY[], int trainNextDir[],
+           int trainPrevX[], int trainPrevY[],
+           int trainDestX[], int trainDestY[],
+           int trainSpawnTick[], int trainColor[],
+           bool trainActive[], bool trainCrashed[], bool trainDelivered[],
+           int trainWaitTicks[], int trainTotalWaitTicks[],
+           bool switchExists[], int switchState[], bool switchMode[],
+           int switchCounters[][4], int switchKValues[][4],
+           bool switchFlipQueued[], int switchSignal[],
+           char switchStateNames[][2][32],
+           int& currentTick, int& trainsDelivered, int& trainsCrashed,
+           int& totalSwitchFlips);
 
-// ----------------------------------------------------------------------------
-// CLEANUP
-// ----------------------------------------------------------------------------
-// Clean up resources and close window
 void cleanupApp();
 
 #endif
+
