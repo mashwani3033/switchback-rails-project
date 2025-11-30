@@ -1,54 +1,46 @@
-#ifndef SWITCHES_H
-#define SWITCHES_H
+#ifndef SIMULATION_H
+#define SIMULATION_H
 
 // ============================================================================
-// SWITCHES.H - Switch logic
+// SIMULATION.H - Simulation tick logic
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// SWITCH COUNTER UPDATE
+// MAIN SIMULATION FUNCTION
 // ----------------------------------------------------------------------------
-void updateSwitchCounters(int trainCount, int trainX[], int trainY[],
-                         int trainPrevX[], int trainPrevY[],
-                         bool trainActive[], bool trainCrashed[],
-                         int trainDir[], char grid[][100],
-                         bool switchExists[], bool switchMode[],
-                         int switchCounters[][4]);
+void simulateOneTick(int& currentTick,
+                    int trainCount, int trainX[], int trainY[], int trainDir[],
+                    int trainNextX[], int trainNextY[], int trainNextDir[],
+                    int trainPrevX[], int trainPrevY[],
+                    int trainDestX[], int trainDestY[],
+                    int trainSpawnTick[], int trainColor[],
+                    bool trainActive[], bool trainCrashed[], bool trainDelivered[],
+                    int trainWaitTicks[], int trainTotalWaitTicks[],
+                    char grid[][100], int gridRows, int gridCols,
+                    bool switchExists[], int switchState[], bool switchMode[],
+                    int switchCounters[][4], int switchKValues[][4],
+                    bool switchFlipQueued[], int switchSignal[],
+                    char switchStateNames[][2][32],
+                    int& trainsDelivered, int& trainsCrashed, int& totalSwitchFlips);
 
 // ----------------------------------------------------------------------------
-// FLIP QUEUE
+// INITIALIZATION
 // ----------------------------------------------------------------------------
-void queueSwitchFlips(bool switchExists[], bool switchMode[],
-                     int switchCounters[][4], int switchKValues[][4],
-                     bool switchFlipQueued[]);
+void initializeSimulation();
 
 // ----------------------------------------------------------------------------
-// DEFERRED FLIP
+// UTILITY
 // ----------------------------------------------------------------------------
-void applyDeferredFlips(bool switchExists[], int switchState[],
-                       bool switchFlipQueued[], int switchCounters[][4],
-                       int& totalSwitchFlips);
+bool isSimulationComplete(int trainCount, bool trainActive[],
+                         bool trainDelivered[], bool trainCrashed[]);
 
 // ----------------------------------------------------------------------------
-// SIGNAL CALCULATION
+// TERMINAL OUTPUT
 // ----------------------------------------------------------------------------
-void updateSignalLights(bool switchExists[], int switchState[],
-                       int switchSignal[], char grid[][100],
-                       int gridRows, int gridCols,
-                       int trainCount, int trainX[], int trainY[],
-                       bool trainActive[]);
-
-// ----------------------------------------------------------------------------
-// SWITCH TOGGLE (for manual control)
-// ----------------------------------------------------------------------------
-void toggleSwitchState(char switchLetter, bool switchExists[], int switchState[]);
-
-// ----------------------------------------------------------------------------
-// HELPER FUNCTIONS
-// ----------------------------------------------------------------------------
-// Get state for a given direction
-int getSwitchStateForDirection(int switchIndex, int direction,
-                               int switchState[], bool switchMode[]);
+void printGridToTerminal(char grid[][100], int gridRows, int gridCols,
+                        int trainCount, int trainX[], int trainY[], int trainDir[],
+                        bool trainActive[], bool trainCrashed[],
+                        int currentTick);
 
 #endif
 
