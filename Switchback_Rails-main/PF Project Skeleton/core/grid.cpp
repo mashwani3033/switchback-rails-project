@@ -8,8 +8,8 @@
 // ----------------------------------------------------------------------------
 // Check if position is inside grid
 // ----------------------------------------------------------------------------
-bool isInBounds(int x, int y, int gridCols, int gridRows) {
-    return (x >= 0 && x < gridCols && y >= 0 && y < gridRows);
+bool isInBounds(int x, int y, int gr_cols, int gr_rows) {
+    return (x >= 0 && x < gr_cols && y >= 0 && y < gr_rows);
 }
 
 // ----------------------------------------------------------------------------
@@ -65,8 +65,8 @@ bool isDestinationPoint(int x, int y, int destX[], int destY[], int destCount) {
 // ----------------------------------------------------------------------------
 // Toggle safety tile at position
 // ----------------------------------------------------------------------------
-bool toggleSafetyTile(int x, int y, char grid[][100], int gridCols, int gridRows) {
-    if(!isInBounds(x, y, gridCols, gridRows)) {
+bool toggleSafetyTile(int x, int y, char grid[][100], int gr_cols, int gr_rows) {
+    if(!isInBounds(x, y, gr_cols, gr_rows)) {
         return false;
     }
     
