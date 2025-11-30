@@ -56,10 +56,14 @@ bool determineNextPosition(int trainId, int trainCount, int trainX[], int trainY
     int nextX = x;
     int nextY = y;
     
-    if(nextDir == 0) nextY--;
-    else if(nextDir == 1) nextX++;
-    else if(nextDir == 2) nextY++;
-    else if(nextDir == 3) nextX--;
+    if(nextDir == 0) 
+    nextY--;
+    else if(nextDir == 1) 
+    nextX++;
+    else if(nextDir == 2) 
+    nextY++;
+    else if(nextDir == 3) 
+    nextX--;
     
     if(x == trainDestX[trainId] && y == trainDestY[trainId]) {
         trainNextX[trainId] = x;
@@ -105,17 +109,26 @@ int getNextDirection(int x, int y, int currentDir, char tile,
     }
     
     if(tile == '/') {
-        if(currentDir == 0) return 1;
-        if(currentDir == 1) return 0;
-        if(currentDir == 2) return 3;
-        if(currentDir == 3) return 2;
+        if(currentDir == 0) 
+        return 1;
+        if(currentDir == 1) 
+        return 0;
+        if(currentDir == 2) 
+        return 3;
+        if(currentDir == 3)
+         return 2;
     }
+
     
     if(tile == '\\') {
-        if(currentDir == 0) return 3;
-        if(currentDir == 1) return 2;
-        if(currentDir == 2) return 1;
-        if(currentDir == 3) return 0;
+        if(currentDir == 0) 
+        return 3;
+        if(currentDir == 1) 
+        return 2;
+        if(currentDir == 2) 
+        return 1;
+        if(currentDir == 3)
+         return 0;
     }
     
     return currentDir;
@@ -136,11 +149,16 @@ int getSmartDirectionAtCrossing(int x, int y, int currentDir,
     int absDy = (dy >= 0 ? dy : -dy);
     
     if(absDx > absDy) {
-        if(dx > 0 && currentDir != backward) return 1;
-        if(dx < 0 && currentDir != backward) return 3;
-    } else if(absDy > absDx) {
-        if(dy > 0 && currentDir != backward) return 2;
-        if(dy < 0 && currentDir != backward) return 0;
+        if(dx > 0 && currentDir != backward)
+         return 1;
+        if(dx < 0 && currentDir != backward) 
+        return 3;
+    } 
+    else if(absDy > absDx) {
+        if(dy > 0 && currentDir != backward) 
+        return 2;
+        if(dy < 0 && currentDir != backward) 
+        return 0;
     }
     
     return currentDir;
@@ -178,10 +196,14 @@ void determineAllRoutes(int trainCount, int trainX[], int trainY[], int trainDir
         int nextX = x;
         int nextY = y;
         
-        if(nextDir == 0) nextY--;
-        else if(nextDir == 1) nextX++;
-        else if(nextDir == 2) nextY++;
-        else if(nextDir == 3) nextX--;
+        if(nextDir == 0) 
+        nextY--;
+        else if(nextDir == 1) 
+        nextX++;
+        else if(nextDir == 2) 
+        nextY++;
+        else if(nextDir == 3) 
+        nextX--;
         
         if(x == trainDestX[i] && y == trainDestY[i]) {
             trainNextX[i] = x;
@@ -236,10 +258,12 @@ void detectCollisions(int trainCount, int trainX[], int trainY[],
                      bool trainActive[], bool trainCrashed[], bool trainDelivered[]) {
     
     for(int i = 0; i < trainCount; i++) {
-        if(!trainActive[i] || trainCrashed[i] || trainDelivered[i]) continue;
+        if(!trainActive[i] || trainCrashed[i] || trainDelivered[i]) 
+        continue;
         
         for(int j = i + 1; j < trainCount; j++) {
-            if(!trainActive[j] || trainCrashed[j] || trainDelivered[j]) continue;
+            if(!trainActive[j] || trainCrashed[j] || trainDelivered[j]) 
+            continue;
             
             if(trainNextX[i] == trainNextX[j] && trainNextY[i] == trainNextY[j]) {
                 
@@ -251,11 +275,13 @@ void detectCollisions(int trainCount, int trainX[], int trainY[],
                 if(dist_i == dist_j) {
                     trainCrashed[i] = true;
                     trainCrashed[j] = true;
-                } else if(dist_i > dist_j) {
+                } 
+                else if(dist_i > dist_j) {
                     trainNextX[j] = trainX[j];
                     trainNextY[j] = trainY[j];
                     trainNextDir[j] = trainDir[j];
-                } else {
+                } 
+                else {
                     trainNextX[i] = trainX[i];
                     trainNextY[i] = trainY[i];
                     trainNextDir[i] = trainDir[i];
@@ -273,11 +299,13 @@ void detectCollisions(int trainCount, int trainX[], int trainY[],
                 if(dist_i == dist_j) {
                     trainCrashed[i] = true;
                     trainCrashed[j] = true;
-                } else if(dist_i > dist_j) {
+                } 
+                else if(dist_i > dist_j) {
                     trainNextX[j] = trainX[j];
                     trainNextY[j] = trainY[j];
                     trainNextDir[j] = trainDir[j];
-                } else {
+                } 
+                else {
                     trainNextX[i] = trainX[i];
                     trainNextY[i] = trainY[i];
                     trainNextDir[i] = trainDir[i];

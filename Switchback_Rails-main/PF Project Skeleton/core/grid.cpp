@@ -9,30 +9,30 @@
 // Check if position is inside grid
 // ----------------------------------------------------------------------------
 bool isInBounds(int x, int y, int gr_cols, int gr_rows) {
-    return (x >= 0 && x < gr_cols && y >= 0 && y < gr_rows);
+    return ((x >= 0) && (x < gr_cols) && (y >= 0) && (y < gr_rows));
 }
 
 // ----------------------------------------------------------------------------
 // Check if tile is a track tile
 // ----------------------------------------------------------------------------
 bool isTrackTile(char tile) {
-    return (tile == '-' || tile == '|' || tile == '/' || tile == '\\' ||
-            tile == '+' || tile == 'S' || tile == 'D' || tile == '=' ||
-            (tile >= 'A' && tile <= 'Z'));
+    return ((tile == '-') || (tile == '|') || (tile == '/') || (tile == '\\') ||
+            (tile == '+') || (tile == 'S') || (tile == 'D') || (tile == '=') ||
+            (tile >= 'A') && (tile <= 'Z'));
 }
 
 // ----------------------------------------------------------------------------
 // Check if tile is a switch
 // ----------------------------------------------------------------------------
 bool isSwitchTile(char tile) {
-    return (tile >= 'A' && tile <= 'Z');
+    return ((tile >= 'A') && (tile <= 'Z'));
 }
 
 // ----------------------------------------------------------------------------
 // Get switch index from character
 // ----------------------------------------------------------------------------
 int getSwitchIndex(char tile) {
-    if(tile >= 'A' && tile <= 'Z') {
+    if((tile >= 'A') && (tile <= 'Z')) {
         return tile - 'A';
     }
     return -1;

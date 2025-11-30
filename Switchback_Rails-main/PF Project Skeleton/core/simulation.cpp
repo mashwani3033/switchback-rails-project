@@ -162,7 +162,8 @@ void printGridToTerminal(char grid[][100], int gridRows, int gridCols,
             
             if(trainHere) {
                 cout << (trainId % 10);
-            } else {
+            } 
+            else {
                 cout << grid[y][x];
             }
         }
@@ -180,6 +181,6 @@ void printGridToTerminal(char grid[][100], int gridRows, int gridCols,
             cout << "\n";
         }
     }
-    cout << "==============================\n\n";
+    cout << endl;
 }
 

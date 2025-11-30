@@ -84,7 +84,9 @@ void applyDeferredFlips(bool switchExists[], int switchState[],
                        int& totalSwitchFlips) {
     
     for(int i = 0; i < 26; i++) {
-        if(!switchExists[i]) continue;
+        if(!switchExists[i]) {
+            continue;
+        }
         
         if(switchFlipQueued[i]) {
         
@@ -130,7 +132,9 @@ void updateSignalLights(bool switchExists[], int switchState[],
         
         int minDist = 999;
         for(int t = 0; t < trainCount; t++) {
-            if(!trainActive[t]) continue;
+            if(!trainActive[t]) {
+                continue;
+            }
             
             int dx = trainX[t] - sx;
             int dy = trainY[t] - sy;
@@ -169,7 +173,7 @@ void toggleSwitchState(char switchLetter, bool switchExists[], int switchState[]
 int getSwitchStateForDirection(int switchIndex, int direction,
                                int switchState[], bool switchMode[]) {
                                
-    if(switchIndex >= 0 && switchIndex < 26) {
+    if((switchIndex >= 0) && (switchIndex < 26)) {
         return switchState[switchIndex];
     }
     return 0;
