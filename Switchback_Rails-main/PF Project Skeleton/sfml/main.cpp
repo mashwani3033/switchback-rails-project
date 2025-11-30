@@ -194,12 +194,8 @@ int main(int argc, char* argv[]) {
     cout << "Trains Crashed: " << trainsCrashed << endl;
     cout << "Switch Flips: " << totalSwitchFlips << endl;
     cout << endl;
-    cout << "Logs saved to:" << endl;
-    cout << "  - out/trace.csv" << endl;
-    cout << "  - out/switches.csv" << endl;
-    cout << "  - out/signals.csv" << endl;
-    cout << "  - out/metrics.txt" << endl;
-    cout << "========================================" << endl;
+    cout << "Logs saved " << endl;
+    
     
     return 0;
 }
